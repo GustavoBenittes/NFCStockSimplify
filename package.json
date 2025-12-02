@@ -1,18 +1,64 @@
 {
   "name": "nfcstocksimplify",
   "version": "1.0.0",
+  "description": "Sistema mobile de gestão de estoque com autenticação e leitura de produtos via NFC",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/GustavoBenittes/NFCStockSimplify.git"
+  },
+  "keywords": [
+    "react-native",
+    "expo",
+    "nfc",
+    "stock-management",
+    "inventory",
+    "offline-first",
+    "mobile"
+  ],
+  "author": "Gustavo Benittes",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/GustavoBenittes/NFCStockSimplify/issues"
+  },
+  "homepage": "https://github.com/GustavoBenittes/NFCStockSimplify#readme",
   "scripts": {
-    "start": "expo start",
-    "android": "expo start --android",
-    "ios": "expo start --ios",
-    "web": "expo start --web"
+    "start": "expo start --dev-client",
+    "android": "expo start --android --dev-client",
+    "ios": "expo start --ios --dev-client",
+    "web": "expo start --web",
+    "build:dev": "eas build --profile development --platform android",
+    "build:preview": "eas build --profile preview --platform android",
+    "build:prod": "eas build --profile production --platform android"
   },
   "dependencies": {
+    "@react-native-community/netinfo": "^11.4.1",
+    "@react-navigation/native": "^7.1.22",
+    "@react-navigation/native-stack": "^7.8.2",
+    "axios": "^1.13.2",
     "expo": "~54.0.25",
+    "expo-camera": "^17.0.9",
+    "expo-dev-client": "^6.0.18",
+    "expo-linear-gradient": "^15.0.7",
+    "expo-sqlite": "^16.0.9",
     "expo-status-bar": "~3.0.8",
     "react": "19.1.0",
-    "react-native": "0.81.5"
+    "react-dom": "19.1.0",
+    "react-native": "0.81.5",
+    "react-native-nfc-manager": "^3.17.2",
+    "react-native-safe-area-context": "^5.6.2",
+    "react-native-screens": "~4.16.0",
+    "react-native-web": "^0.21.0"
   },
-  "private": true
+  "private": true,
+  "expo": {
+    "doctor": {
+      "reactNativeDirectoryCheck": {
+        "exclude": [
+          "react-native-nfc-manager",
+          "expo-barcode-scanner"
+        ]
+      }
+    }
+  }
 }

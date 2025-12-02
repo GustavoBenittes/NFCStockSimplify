@@ -1,20 +1,41 @@
+/**
+ * App.js - Ponto de entrada da aplicação
+ * NFCStockSimplify - Sistema de gerenciamento de estoque com NFC
+ */
+
+import React, { useEffect } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import AppNavigator from './src/navigation/AppNavigator';
+import DatabaseModel from './src/models/DatabaseModel';
+import SyncService from './src/services/SyncService';
 
 export default function App() {
+  useEffect(() => {
+    // Inicializa banco de dados SQLite ao carregar app
+    const initializeApp = async () => {
+      // console.log('Inicializando aplicação...');
+      
+      // Inicializa banco de dados
+      await DatabaseModel.initDatabase();
+      
+      // Inicia sincronização automática (a cada 5 minutos)
+      SyncService.startAutoSync(5);
+      
+      // console.log(' Aplicação inicializada com sucesso');
+    };
+
+    initializeApp();
+
+    // Cleanup ao desmontar
+    return () => {
+      SyncService.stopAutoSync();
+    };
+  }, []);
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
+    <>
+      <AppNavigator />
       <StatusBar style="auto" />
-    </View>
+    </>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
